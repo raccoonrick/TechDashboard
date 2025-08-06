@@ -1,6 +1,9 @@
 # Tech News Dashboard
 
 A **TypeScript Node.js API and Web App** that aggregates tech news from multiple sources including NewsAPI, Hacker News, and DEV.to — with a **modern frontend dashboard** to browse articles easily.
+<img width="1425" height="927" alt="image" src="https://github.com/user-attachments/assets/5fb98cb6-9001-47bd-abaa-ab3ef4d218ba" />
+
+
 
 ---
 
@@ -41,7 +44,7 @@ npm install
 
 ```bash
 # Copy the example environment file
-cp .env.example .env
+cp .env-example .env
 
 # Edit .env with your configuration
 ```
@@ -167,3 +170,4 @@ tech-news-dashboard/
 - **NewsAPI**: TechCrunch, The Verge, Wired, Ars Technica, Engadget  
 - **Hacker News**: Top stories with tech relevance  
 - **DEV.to**: Programming and development articles 
+
