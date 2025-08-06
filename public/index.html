@@ -55,7 +55,7 @@
         }
         
         .minimalist-bg {
-            background: linear-gradient(135deg, #000000 0%, #000000 50%, #000000 100%);
+            background: rgb(35, 46, 64);
         }
         
         .pattern-bg {
@@ -83,6 +83,16 @@
             <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto font-light">
                 Curated technology news from leading sources
             </p>
+            
+            <!-- Search Bar -->
+            <input 
+                id="search-bar"
+                type="text"
+                placeholder="Search articles..."
+                class="w-full md:w-1/2 mx-auto mb-6 px-6 py-3 rounded-full glass text-white placeholder-gray-400 bg-black/30 border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all text-lg font-light"
+                oninput="debouncedSearch(this.value)"
+                autocomplete="off"
+            />
             
             <!-- Controls -->
             <div class="flex flex-wrap justify-center gap-3 mb-6">
@@ -388,6 +398,35 @@
             if (diffMins < 60) return `${diffMins}m ago`;
             if (diffHours < 24) return `${diffHours}h ago`;
             return `${diffDays}d ago`;
+        }
+
+        // Debounce utility
+        function debounce(fn, delay) {
+            let timer = null;
+            return function(...args) {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn.apply(this, args), delay);
+            };
+        }
+
+        // Debounced search handler
+        const debouncedSearch = debounce(handleSearch, 300);
+
+        // Add search handler
+        function handleSearch(query) {
+            const lower = query.trim().toLowerCase();
+            let filtered = allArticles;
+            if (currentFilter !== 'all') {
+                filtered = allArticles.filter(article => article.category === currentFilter);
+            }
+            if (lower) {
+                filtered = filtered.filter(article =>
+                    (article.title && article.title.toLowerCase().includes(lower)) ||
+                    (article.description && article.description.toLowerCase().includes(lower)) ||
+                    (article.author && article.author.toLowerCase().includes(lower))
+                );
+            }
+            displayArticles(filtered);
         }
 
         // Handle image loading errors with multiple fallbacks
